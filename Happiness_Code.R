@@ -95,7 +95,7 @@ rows6 = which(is.nan(happiness.agg$avg.log.GDP.per.capita))
 happiness.agg$avg.log.GDP.per.capita[rows6] = mean(happiness.agg$avg.log.GDP.per.capita, na.rm = T)
 
 rows7 = which(is.nan(happiness.agg$avg.generosity))
-happiness.agg$avg.generosity = mean(happiness.agg$avg.generosity, na.rm = T)
+happiness.agg$avg.generosity[rows7] = mean(happiness.agg$avg.generosity, na.rm = T)
 
 rows8 = which(is.nan(happiness.agg$avg.life.expectancy))
 happiness.agg$avg.life.expectancy[rows8] = mean(happiness.agg$avg.life.expectancy, na.rm = T)
@@ -107,3 +107,14 @@ rows10 = which(is.nan(happiness.agg$avg.GINI.world.bank))
 happiness.agg$avg.GINI.world.bank[rows10] = mean(happiness.agg$avg.GINI.world.bank, na.rm = T)
 
 plot_missing(happiness.agg)
+
+
+model1 = lm(avg.Life.Lader~ avg.log.GDP.per.capita + avg.social.support + avg.life.expectancy
+            + avg.freedom + avg.generosity + avg.perception.of.corrpution + avg.positive.affect 
+            + avg.negative.affect + avg.confidence.in.government + avg.democratic.quality
+             + avg.GINI.world.bank +
+              avg.gini.household, data = happiness.agg)
+summary(model1)
+
+cor(happiness.agg$avg.confidence.in.government, happiness.agg$avg.Life.Lader)
+
