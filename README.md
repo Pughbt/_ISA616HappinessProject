@@ -1,2 +1,4 @@
 # _ISA616HappinessProject
- Project for ISA 616
+ 
+
+This project will be an explanatory analysis on what attributes collected by the World Happiness Organization actually has an impact on a nation's happiness.
