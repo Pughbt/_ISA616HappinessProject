@@ -1,0 +1,19 @@
+---
+title: "What affects World Happiness?"
+author: "Brandon Pugh"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+    number_sections: FALSE
+    theme: spacelab
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+What is happiness? Many have tried to answer this question, and no one really has found a clear, definitive answer to this question. The World Happiness Organization is one of these groups, and have spent years gathering data of different socio-economic factors to compile, what they call, the "life ladder". This is how they measure the happiness of a country, and contains a value from 0 to 10, with 0 being the lowest value of happiness and 10 being the highest. The closer a country's life ladder value, the happier it's citizens are. The purpose of this analysis is to determine what socio-economic factors have an impact on a nation's happiness, and use that information to find out which nations are doing the worse at those significant factors so that the UN can direct policy to try to improve the situation in those countries.
