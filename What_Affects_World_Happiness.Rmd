@@ -204,3 +204,23 @@ rows10 = which(is.nan(happiness.agg$avg.GINI.world.bank))
 happiness.agg$avg.GINI.world.bank[rows10] = mean(happiness.agg$avg.GINI.world.bank, na.rm = T)
 ```
 
+```{r}
+plot_missing(happiness.agg)
+```
+
+Now that we have no missing data in this data set, we can start doing our analysis.
+
+## The Model
+
+The first thing we have to do is to determine what type of model we will use to help answer the question of what affects a country's happiness score. Since this question is explanatory in nature, we can use a multiple linear regression model to perform our analysis. We do not include Country.Name in our model as it would not be useful in explaining happiness. We also do not include sdofhappiness and meansdofhappiness variables as they are related to the response variable and would not be useful in explaining happiness. The results of the modle appear below.
+
+```{r}
+model1 = lm(avg.Life.Lader~ avg.log.GDP.per.capita + avg.social.support + avg.life.expectancy
+            + avg.freedom + avg.generosity + avg.perception.of.corrpution + avg.positive.affect 
+            + avg.negative.affect + avg.confidence.in.government + avg.democratic.quality
+             + avg.GINI.world.bank +
+              avg.gini.household, data = happiness.agg)
+summary(model1)
+```
+
+### The Results
