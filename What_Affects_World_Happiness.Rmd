@@ -158,3 +158,49 @@ This makes the analysis much easier to perform and interpret as we no longer hav
 
 ### Missing Data in the Aggregate
 
+Now that we have aggregated the data, we now have to check to see if there is any missing data with the aggregates.
+
+```{r}
+plot_missing(happiness.agg)
+```
+
+We see that even after the aggregation, there are still missing values for certain variables. This means that for the certain country, no data was recorded for that variable.
+
+So how do we handle these missing variables? Since there is not a lot of missing values, we can input the data into ourselves. We do this by replacing the missing values with the average value for that variable for the rest of the observations. This way the analysis can be completed without making drastic changes to the data.
+
+```{r}
+rows = which(is.nan(happiness.agg$avg.confidence.in.government))
+happiness.agg$avg.confidence.in.government[rows] = mean(happiness.agg$avg.confidence.in.government, na.rm = T)
+
+rows1 = which(is.nan(happiness.agg$avg.negative.affect))
+happiness.agg$avg.negative.affect[rows1] = mean(happiness.agg$avg.negative.affect, na.rm = T)
+
+rows2 = which(is.nan(happiness.agg$avg.social.support))
+
+happiness.agg$avg.social.support[rows2] = mean(happiness.agg$avg.social.support, na.rm = T)
+
+rows3 = which(is.nan(happiness.agg$avg.democratic.quality))
+happiness.agg$avg.democratic.quality[rows3] = mean(happiness.agg$avg.democratic.quality, na.rm = T)
+
+rows4 = which(is.nan(happiness.agg$avg.positive.affect))
+happiness.agg$avg.positive.affect[rows4] = mean(happiness.agg$avg.positive.affect, na.rm = T)
+
+rows5 = which(is.nan(happiness.agg$avg.gini.household))
+happiness.agg$avg.gini.household[rows5] = mean(happiness.agg$avg.gini.household, na.rm = T)
+
+rows6 = which(is.nan(happiness.agg$avg.log.GDP.per.capita))
+happiness.agg$avg.log.GDP.per.capita[rows6] = mean(happiness.agg$avg.log.GDP.per.capita, na.rm = T)
+
+rows7 = which(is.nan(happiness.agg$avg.generosity))
+happiness.agg$avg.generosity[rows7] = mean(happiness.agg$avg.generosity, na.rm = T)
+
+rows8 = which(is.nan(happiness.agg$avg.life.expectancy))
+happiness.agg$avg.life.expectancy[rows8] = mean(happiness.agg$avg.life.expectancy, na.rm = T)
+
+rows9 = which(is.nan(happiness.agg$avg.perception.of.corrpution))
+happiness.agg$avg.perception.of.corrpution[rows9] = mean(happiness.agg$avg.perception.of.corrpution, na.rm= T)
+
+rows10 = which(is.nan(happiness.agg$avg.GINI.world.bank))
+happiness.agg$avg.GINI.world.bank[rows10] = mean(happiness.agg$avg.GINI.world.bank, na.rm = T)
+```
+
