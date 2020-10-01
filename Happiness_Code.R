@@ -4,7 +4,7 @@ happiness = read.csv("Happiness/HappyData.csv", stringsAsFactors = TRUE)
 
 ## Data Summary
 summary(happiness)
-
+dim(happiness)
 
 
 

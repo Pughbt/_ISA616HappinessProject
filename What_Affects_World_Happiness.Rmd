@@ -92,3 +92,26 @@ happiness$GINIHousehold = happiness$gini.of.household.income.reported.in.Gallup.
 happiness = select(happiness, -gini.of.household.income.reported.in.Gallup..by.wp5.year)
 ```
 
+### Correlation
+
+The next thing that we have to check before we can do our analysis is to check the correlation of the remaining variables in the data set. If we find variables that are highly correlated, one of them will be removed since both of the variables explain the same information. It would make the data redundant in the analysis.
+
+```{r}
+##Show the correlation for the variables left in the data set
+
+## Turns the data set into only numeric variables
+happiness_numeric = select(happiness, -Country.name)
+## Creates a matrix of the correlations 
+M = cor(happiness_numeric, use = "complete.obs")
+
+##Creates the correlation plot
+corrplot(M, method = "color")
+```
+
+In the above correlation plot, we see that **Democratic.Quality** and **Delivery.Quality** are highly correlated with each other. The variable that was dropped was delivery.quality.
+
+```{r}
+##Drop highly correlated variabels
+happiness = select(happiness, -Delivery.Quality)
+```
+
