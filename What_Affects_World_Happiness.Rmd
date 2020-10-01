@@ -17,3 +17,78 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction
 What is happiness? Many have tried to answer this question, and no one really has found a clear, definitive answer to this question. The World Happiness Organization is one of these groups, and have spent years gathering data of different socio-economic factors to compile, what they call, the "life ladder". This is how they measure the happiness of a country, and contains a value from 0 to 10, with 0 being the lowest value of happiness and 10 being the highest. The closer a country's life ladder value, the happier it's citizens are. The purpose of this analysis is to determine what socio-economic factors have an impact on a nation's happiness, and use that information to find out which nations are doing the worse at those significant factors so that the UN can direct policy to try to improve the situation in those countries.
+
+## Data Overview
+
+### Data Source and References
+The data that is used in this analysis is contained within the file "HappyData.csv", which is stored in the Happiness folder on the main branch of the GitHub site listed below:
+
+https://github.com/Pughbt/_ISA616HappinessProject 
+
+### Data Summary
+
+```{r}
+##Loading in all required packages for the analysis
+pacman:: p_load(DataExplorer, dplyr, corrplot)
+
+## Reading in the data
+happiness = read.csv("Happiness/HappyData.csv", stringsAsFactors = TRUE)
+
+##Showing the dimension of the data
+dim(happiness)
+```
+
+The data has 1848 different observations across 26 variables. Each row is a unique combination of the country name and the year for which data was collected. 
+
+```{r}
+## Provides summary statistics for the happiness data set
+summary(happiness)
+```
+
+Looking at the summary statistics for the variables within the happiness data, we notice several key things. One of which is the year variable. The years that this data was taken was between 2005 and 2019. However, when we look at the actual data set, we find that not every country had their data recorded in each year. Another thing that is clear is the amount of missingness in this data set. Only **Country.Name**, **year**, and **life_ladder** have no missing data in them. Every other variable has some amount of missing data in it, with some of these variables reaching into the thousands of values missing. Another key takeaway is that there are several variables whose values lie between 0 and 1. All of the most.people.can.be.trusted variables, along with social.support, freedom.to.make.life.choices, perceptions.of.corrpution, positive.affect, negative.affect, and confidence.in.national.government, have this characteristic. This means that these variables can be interpreted as the percent of people in these country that feel that way about the factor. For example, if a country had confidence .in.national.government value of .6578, that would mean that 65.78\% of its citizens had trust in the government.
+
+## Data Cleaning and PreProcessing
+
+Before we can start building our model, we first have to go through our data and check various items to see if we can reduce our model. By reducing our model, we can make our analysis that much more efficient and accurate.
+
+### Missing Data
+The first thing we should check for is the missingness of our data. The general rule of thumb is that if a variable has more than **50\%** of it's values missing, it is then dropped from the data set. 
+
+```{r}
+##Plot the missingness of the data
+plot_missing(happiness)
+```
+
+As seen in the above chart, the variables that have bars that are either red or purple have their percentage of missing values greater than 50%. These are then dropped from the dataset as they would not provide much information due to their high amounts of missingness.
+```{r}
+happiness = select(happiness, -Most.people.can.be.trusted..Gallup)
+happiness = select(happiness, -Most.people.can.be.trusted..WVS.round.1981.1984)
+happiness = select(happiness, -Most.people.can.be.trusted..WVS.round.1989.1993)
+happiness = select(happiness, -Most.people.can.be.trusted..WVS.round.1994.1998)
+happiness = select(happiness, -Most.people.can.be.trusted..WVS.round.1999.2004)
+happiness = select(happiness, -Most.people.can.be.trusted..WVS.round.2005.2009)
+happiness = select(happiness, -Most.people.can.be.trusted..WVS.round.2010.2014)
+happiness = select(happiness, -GINI.index..World.Bank.estimate.)
+```
+
+
+### Renaming variables
+
+The following variables were renamed due to their length being too long for the visuals that follow in this report to be visible:
+
+**Standard.deviation.of.ladder.by.country.year** was renamed to **sdofhappiness**
+**Standard.deviation.Mean.of.ladder.by.country.year** was renamed to **meansdofhappiness**
+**GINI.index..World.Bank.estimate...average.2000.2017..unbalanced.panel** was renamed to **GINIWorldBank**
+**gini.of.household.income.reported.in.Gallup..by.wp5.year** was renamed to **GINIHousehold**
+```{r}
+##Rename variables and drop old ones
+happiness$sdofhappiness = happiness$Standard.deviation.of.ladder.by.country.year
+happiness = select(happiness, -Standard.deviation.of.ladder.by.country.year)
+happiness$meansdofhappiness = happiness$Standard.deviation.Mean.of.ladder.by.country.year
+happiness = select(happiness, -Standard.deviation.Mean.of.ladder.by.country.year)
+happiness$GINIWorldBank = happiness$GINI.index..World.Bank.estimate...average.2000.2017..unbalanced.panel
+happiness = select(happiness, -GINI.index..World.Bank.estimate...average.2000.2017..unbalanced.panel)
+happiness$GINIHousehold = happiness$gini.of.household.income.reported.in.Gallup..by.wp5.year
+happiness = select(happiness, -gini.of.household.income.reported.in.Gallup..by.wp5.year)
+```
+
