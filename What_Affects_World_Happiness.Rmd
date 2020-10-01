@@ -115,3 +115,46 @@ In the above correlation plot, we see that **Democratic.Quality** and **Delivery
 happiness = select(happiness, -Delivery.Quality)
 ```
 
+### Data Aggregation
+
+Now we have to decide how we want to do our analysis. As it stands, we have 1848 observations based on the unique combination of country and year. The way that the data is currently structured is shown in the data table below. If we were to do an analysis of this data as is, we would have 13 year dummy variables with 2005 as the base to show the effect that each year has on happiness. But this does not help us in answering the question of what socio-economical factors affect happiness, as year is not one of those factors. It also doesn't help in providing advice on how to improve happiness, as the other factors can be improved upon by governmental bodis such as the UN. We cannot make any change to the year to improve happiness, as time is outside of human control.
+
+```{r}
+head(happiness)
+```
+
+
+Instead of that, I've decided to do an aggregation of the data. This way, we have a data set with each row corresponding to one country, with the other variables being averages for that country across all years that the country was present in the data set.
+
+```{r}
+##Aggregating the data
+happiness.agg = happiness %>%
+  group_by(Country.name) %>%
+  summarize(avg.Life.Lader = mean(Life.Ladder, na.rm = T),
+            avg.log.GDP.per.capita = mean(Log.GDP.per.capita, na.rm = T),
+            avg.social.support = mean(Social.support, na.rm =T),
+            avg.life.expectancy = mean(Healthy.life.expectancy.at.birth, na.rm = T),
+            avg.freedom = mean(Freedom.to.make.life.choices, na.rm = T),
+            avg.generosity = mean(Generosity, na.rm = T),
+            avg.perception.of.corrpution = mean(Perceptions.of.corruption, na.rm = T),
+            avg.positive.affect = mean(Positive.affect, na.rm = T),
+            avg.negative.affect = mean(Negative.affect, na.rm = T),
+            avg.confidence.in.government = mean(Confidence.in.national.government, na.rm = T),
+            avg.democratic.quality = mean(Democratic.Quality, na.rm = T),
+            avg.sd.of.happiness = mean(sdofhappiness, na.rm = T),
+            avg.mean.sd.of.happiness = mean(meansdofhappiness, na.rm = T),
+            avg.GINI.world.bank = mean(GINIWorldBank, na.rm = T),
+            avg.gini.household = mean(GINIHousehold, na.rm = T)
+            )
+```
+
+Now the data set will look like the table below:
+
+```{r}
+head(happiness.agg)
+```
+
+This makes the analysis much easier to perform and interpret as we no longer have to worry about time differences in the data.
+
+### Missing Data in the Aggregate
+

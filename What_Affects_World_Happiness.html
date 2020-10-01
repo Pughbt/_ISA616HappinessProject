@@ -1818,6 +1818,88 @@ corrplot(M, method = &quot;color&quot;)</code></pre>
 <pre class="r"><code>##Drop highly correlated variabels
 happiness = select(happiness, -Delivery.Quality)</code></pre>
 </div>
+<div id="data-aggregation" class="section level3">
+<h3>Data Aggregation</h3>
+<p>Now we have to decide how we want to do our analysis. As it stands, we have 1848 observations based on the unique combination of country and year. The way that the data is currently structured is shown in the data table below. If we were to do an analysis of this data as is, we would have 13 year dummy variables with 2005 as the base to show the effect that each year has on happiness. But this does not help us in answering the question of what socio-economical factors affect happiness, as year is not one of those factors. It also doesn’t help in providing advice on how to improve happiness, as the other factors can be improved upon by governmental bodis such as the UN. We cannot make any change to the year to improve happiness, as time is outside of human control.</p>
+<pre class="r"><code>head(happiness)</code></pre>
+<pre><code>##   Country.name year Life.Ladder Log.GDP.per.capita Social.support
+## 1  Afghanistan 2008    3.723590           7.144916      0.4506623
+## 2  Afghanistan 2009    4.401778           7.314788      0.5523084
+## 3  Afghanistan 2010    4.758381           7.421525      0.5390752
+## 4  Afghanistan 2011    3.831719           7.394349      0.5211036
+## 5  Afghanistan 2012    3.782938           7.480296      0.5206367
+## 6  Afghanistan 2013    3.572100           7.499845      0.4835519
+##   Healthy.life.expectancy.at.birth Freedom.to.make.life.choices Generosity
+## 1                            50.80                    0.7181143 0.17899305
+## 2                            51.20                    0.6788964 0.20122828
+## 3                            51.60                    0.6001272 0.13157794
+## 4                            51.92                    0.4959014 0.17345162
+## 5                            52.24                    0.5309350 0.24694321
+## 6                            52.56                    0.5779554 0.07203268
+##   Perceptions.of.corruption Positive.affect Negative.affect
+## 1                 0.8816863       0.5176372       0.2581955
+## 2                 0.8500354       0.5839256       0.2370924
+## 3                 0.7067661       0.6182654       0.2753238
+## 4                 0.7311085       0.6113873       0.2671747
+## 5                 0.7756198       0.7103847       0.2679191
+## 6                 0.8232041       0.6205848       0.2733281
+##   Confidence.in.national.government Democratic.Quality sdofhappiness
+## 1                         0.6120721          -1.929690      1.774662
+## 2                         0.6115452          -2.044093      1.722688
+## 3                         0.2993574          -1.991810      1.878622
+## 4                         0.3073857          -1.919018      1.785360
+## 5                         0.4354402          -1.842996      1.798283
+## 6                         0.4828473          -1.879709      1.223690
+##   meansdofhappiness GINIWorldBank GINIHousehold
+## 1         0.4765997            NA            NA
+## 2         0.3913617            NA     0.4419058
+## 3         0.3948027            NA     0.3273182
+## 4         0.4659422            NA     0.3367642
+## 5         0.4753669            NA     0.3445396
+## 6         0.3425687            NA     0.3043685</code></pre>
+<p>Instead of that, I’ve decided to do an aggregation of the data. This way, we have a data set with each row corresponding to one country, with the other variables being averages for that country across all years that the country was present in the data set.</p>
+<pre class="r"><code>##Aggregating the data
+happiness.agg = happiness %&gt;%
+  group_by(Country.name) %&gt;%
+  summarize(avg.Life.Lader = mean(Life.Ladder, na.rm = T),
+            avg.log.GDP.per.capita = mean(Log.GDP.per.capita, na.rm = T),
+            avg.social.support = mean(Social.support, na.rm =T),
+            avg.life.expectancy = mean(Healthy.life.expectancy.at.birth, na.rm = T),
+            avg.freedom = mean(Freedom.to.make.life.choices, na.rm = T),
+            avg.generosity = mean(Generosity, na.rm = T),
+            avg.perception.of.corrpution = mean(Perceptions.of.corruption, na.rm = T),
+            avg.positive.affect = mean(Positive.affect, na.rm = T),
+            avg.negative.affect = mean(Negative.affect, na.rm = T),
+            avg.confidence.in.government = mean(Confidence.in.national.government, na.rm = T),
+            avg.democratic.quality = mean(Democratic.Quality, na.rm = T),
+            avg.sd.of.happiness = mean(sdofhappiness, na.rm = T),
+            avg.mean.sd.of.happiness = mean(meansdofhappiness, na.rm = T),
+            avg.GINI.world.bank = mean(GINIWorldBank, na.rm = T),
+            avg.gini.household = mean(GINIHousehold, na.rm = T)
+            )</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p>Now the data set will look like the table below:</p>
+<pre class="r"><code>head(happiness.agg)</code></pre>
+<pre><code>## # A tibble: 6 x 16
+##   Country.name avg.Life.Lader avg.log.GDP.per~ avg.social.supp~ avg.life.expect~
+##   &lt;fct&gt;                 &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 Afghanistan            3.59             7.42            0.508             52.3
+## 2 Albania                4.99             9.28            0.717             67.4
+## 3 Algeria                5.39             9.51            0.804             65.3
+## 4 Angola                 4.42             8.80            0.738             53.6
+## 5 Argentina              6.34             9.83            0.905             67.8
+## 6 Armenia                4.44             8.93            0.714             65.6
+## # ... with 11 more variables: avg.freedom &lt;dbl&gt;, avg.generosity &lt;dbl&gt;,
+## #   avg.perception.of.corrpution &lt;dbl&gt;, avg.positive.affect &lt;dbl&gt;,
+## #   avg.negative.affect &lt;dbl&gt;, avg.confidence.in.government &lt;dbl&gt;,
+## #   avg.democratic.quality &lt;dbl&gt;, avg.sd.of.happiness &lt;dbl&gt;,
+## #   avg.mean.sd.of.happiness &lt;dbl&gt;, avg.GINI.world.bank &lt;dbl&gt;,
+## #   avg.gini.household &lt;dbl&gt;</code></pre>
+<p>This makes the analysis much easier to perform and interpret as we no longer have to worry about time differences in the data.</p>
+</div>
+<div id="missing-data-in-the-aggregate" class="section level3">
+<h3>Missing Data in the Aggregate</h3>
+</div>
 </div>
 
 
