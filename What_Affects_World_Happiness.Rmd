@@ -25,6 +25,40 @@ The data that is used in this analysis is contained within the file "HappyData.c
 
 https://github.com/Pughbt/_ISA616HappinessProject 
 
+### Variable Information
+The following are the variables that are included in the data set with their definition:
+
+**Country.name** is the name of the country
+
+**year** is the year of which the data was created.
+
+**Life.Ladder** is the happiness score for that country in that specific year. It is on a scale from 0 to 10, with 0 being absolutely unhappy and 10 being extremely happy.
+
+**Log.GDP.per.capita** is the log value of a nation's GDP per capita
+
+**Social.Support** is the percentage of people in a country that says that they have someone to count on in times of trouble.
+
+**Healthy.life.expectancy.at.birth** is the average life expectancy for a person at birth
+Freedom.to.make.life.choices is the national average of the citizen's belief on the amount of freedom in their lives
+
+**Generosity** is  the residual of regressing national average of response to the GWP question “Have you donated money to a charity in the past month?” on GDP per capita.
+
+**Perceptions.of.corruption** is the percentage of people in a country that believe that their government has widespred corruption
+
+**Positive.affect** is the average of how many times a person feels happy in a day.
+
+**Negative.affect** is the average of how many times a person feels sad/angry/worried in a day
+
+**Confidence.in.national.government** is the average of how many peole who have confidence in their government
+
+**Democratic.Quality** is how democratic a country's government is. **Delivery.quality** is also measures the same thing.
+
+**Standard.deviation.of.ladder.by.country.year** is an alternative measure of hte inequality of happiness. **Standard.deviation.mean.of.ladder.by.country.year** is the mean of the previous variable
+
+The **GIN**I world index variables measures World bank data for a country
+
+The **most.people.can.be.trusted variables** is the average percentage of people in a country that most people can be trused, with most of the variables being that for different time periods.
+
 ### Data Summary
 
 ```{r}
@@ -224,3 +258,27 @@ summary(model1)
 ```
 
 ### The Results
+
+After the running of the model, we can know see what factors actually affect the happiness of countries around the world. These variables are avg.log.GDP.per.capita, avg.social.support, avg.life.expectancy, avg.freedom, avg.perception.of.corruption, avg.positive.affect, avg.confidence.in.government, and avg.gini.household
+
+For the following variables, an increase in the variable leads to a increase in a country's happiness:
+
+**avg.log.GDP.per.capita**
+
+**avg.social.support**
+
+**avg.life.expectancy**
+
+**avg.freedom**
+
+For the following variables, an increase in the variable leads to a decrease in a country's happiness:
+
+**avg.perception.of.corruption**
+
+**avg.confidence.in.government**
+
+**avg.gini.household**
+
+For almost all of these variables, the way that they affect happiness makes sense. We expect that the richer a country is, the more people that individuals can rely on, the longer a person lives, and the more freedom a person has to live their own life would make a country's populace. We would also expect the more corrupt a government is and the more variability in a household would lead to a country's populace to be less happy. But we wouldn't expect that the higher a country's populace has confidence in their government leads to that populace being unhappy. You would think that the less confident a country is in their leadership, the less happy they would be. But the opposite occurs. Let's take a deeper look at this particular variable
+
+#### The avg.confidence.in.government Variable
