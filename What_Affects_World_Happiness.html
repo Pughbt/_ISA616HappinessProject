@@ -2050,8 +2050,52 @@ summary(model1)</code></pre>
 ## #   avg.confidence.in.government &lt;dbl&gt;, avg.democratic.quality &lt;dbl&gt;,
 ## #   avg.sd.of.happiness &lt;dbl&gt;, avg.mean.sd.of.happiness &lt;dbl&gt;,
 ## #   avg.GINI.world.bank &lt;dbl&gt;, avg.gini.household &lt;dbl&gt;</code></pre>
+<p>We can now calcualte the average of these nations happiness:</p>
+<pre class="r"><code>(4.94 + 4.72 + 5.2 + 4 + 3.55 + 4.24 + 4.38 + 4.73 + 5.3 + 6.27 + 4.97 + 7.05 + 4.41 + 6.57 + 3.65 + 6.5 + 7.55 + 4.91 + 5.79 + 5.31)/20</code></pre>
+<pre><code>## [1] 5.202</code></pre>
+<p>We can also do the same thing for the bottom 20 nations in terms of avg.confidence.in.government</p>
+<pre class="r"><code>happiness.agg %&gt;%
+  arrange((avg.confidence.in.government)) %&gt;%
+  slice(1:20)</code></pre>
+<pre><code>## # A tibble: 20 x 16
+##    Country.name avg.Life.Lader avg.log.GDP.per~ avg.social.supp~
+##    &lt;fct&gt;                 &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 Ukraine                4.73             9.00            0.873
+##  2 Bosnia and ~           5.16             9.29            0.773
+##  3 Romania                5.53             9.88            0.782
+##  4 Peru                   5.59             9.29            0.803
+##  5 Moldova                5.60             8.57            0.836
+##  6 Latvia                 5.37            10.0             0.871
+##  7 Lebanon                4.98             9.42            0.770
+##  8 Greece                 5.53            10.2             0.813
+##  9 Bulgaria               4.48             9.73            0.885
+## 10 Lithuania              5.79            10.1             0.921
+## 11 Italy                  6.27            10.5             0.898
+## 12 Slovenia               6.02            10.3             0.927
+## 13 Croatia                5.55             9.98            0.809
+## 14 Jamaica                5.70             9.01            0.883
+## 15 South Korea            5.88            10.4             0.791
+## 16 Poland                 5.91            10.1             0.909
+## 17 Slovakia               6.02            10.2             0.928
+## 18 Paraguay               5.56             9.22            0.906
+## 19 Mongolia               4.98             9.21            0.926
+## 20 Japan                  6.01            10.5             0.904
+## # ... with 12 more variables: avg.life.expectancy &lt;dbl&gt;, avg.freedom &lt;dbl&gt;,
+## #   avg.generosity &lt;dbl&gt;, avg.perception.of.corrpution &lt;dbl&gt;,
+## #   avg.positive.affect &lt;dbl&gt;, avg.negative.affect &lt;dbl&gt;,
+## #   avg.confidence.in.government &lt;dbl&gt;, avg.democratic.quality &lt;dbl&gt;,
+## #   avg.sd.of.happiness &lt;dbl&gt;, avg.mean.sd.of.happiness &lt;dbl&gt;,
+## #   avg.GINI.world.bank &lt;dbl&gt;, avg.gini.household &lt;dbl&gt;</code></pre>
+<pre class="r"><code>(4.73 + 5.16 + 5.53 + 5.59 + 5.6 + 5.37 + 4.98 + 5.53 + 4.48 + 5.79 + 6.27 + 6.02 + 5.55 + 5.70 + 5.88 + 5.91 + 6.02 + 5.56 + 4.98 + 6.01)/20</code></pre>
+<pre><code>## [1] 5.533</code></pre>
+<p>After doing this for both sets, we can actually see that for the sample that had the lowest avg.confidence.in.government had a higher happiness score on average than the the sample that had the higher avg.confidence.in.government. This supports the result that found that having a higher confidence in their government, the more unhappy their citizens are. But how could this be? It could be possible that countries that have a lower confidence have a higher education level than those that have a higher confidence. This can lead to their citizens being more skeptical of what their government says and can more easily see if they are not doing what the government is supposed to be doing.</p>
 </div>
 </div>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>In conclusion, we were able to perform an explanatory analysis to find what socio-economic factors actually impacts the happiness of countries around the world. We found that several of the variables have an impact on happines, including the social support, life expectancy, GDP, positive effects on life, and other variables. This helps us answer our question of finding what actually affects happiness. We can then use this information to help identify countries that are struggling with the happiness of their citizens, then look at the important variables that was determined in this analysis and can then identify where these countries are falling short, and the UN can create policy that can help remedy this situation.</p>
+<p>Future research into this topic can add more factors that contain basic living information, such as access to clean water, plumbing, and levels of malnurishment. Also future research can also consider physical factors such as averge rainfall, population density, and elevation of the country. All of these could have some impact on a nation’s happiness.</p>
 </div>
 
 

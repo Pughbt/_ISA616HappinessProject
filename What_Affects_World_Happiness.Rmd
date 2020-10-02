@@ -309,6 +309,8 @@ happiness.agg %>%
 
 After doing this for both sets, we can actually see that for the sample that had the lowest avg.confidence.in.government had a higher happiness score on average than the the sample that had the higher avg.confidence.in.government. This supports the result that found that having a higher confidence in their government, the more unhappy their citizens are. But how could this be? It could be possible that countries that have a lower confidence have a higher education level than those that have a higher confidence. This can lead to their citizens being more skeptical of what their government says and can more easily see if they are not doing what the government is supposed to be doing.
 
-##Conclusion
+## Conclusion
 
-In conclusion, we  were able to perform an explanatory analysis to find what socio-economic factors actually impacts
+In conclusion, we were able to perform an explanatory analysis to find what socio-economic factors actually impacts the happiness of countries around the world. We found that several of the variables have an impact on happines, including the social support, life expectancy, GDP, positive effects on life, and other variables. This helps us answer our question of finding what actually affects happiness. We can then use this information to help identify countries that are struggling with the happiness of their citizens, then look at the important variables that was determined in this analysis and can then identify where these countries are falling short, and the UN can create policy that can help remedy this situation.
+
+Future research into this topic can add more factors that contain basic living information, such as access to clean water, plumbing, and levels of malnurishment. Also future research can also consider physical factors such as averge rainfall, population density, and elevation of the country. All of these could have some impact on a nation's happiness.
