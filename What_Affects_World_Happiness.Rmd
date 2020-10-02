@@ -282,3 +282,33 @@ For the following variables, an increase in the variable leads to a decrease in 
 For almost all of these variables, the way that they affect happiness makes sense. We expect that the richer a country is, the more people that individuals can rely on, the longer a person lives, and the more freedom a person has to live their own life would make a country's populace. We would also expect the more corrupt a government is and the more variability in a household would lead to a country's populace to be less happy. But we wouldn't expect that the higher a country's populace has confidence in their government leads to that populace being unhappy. You would think that the less confident a country is in their leadership, the less happy they would be. But the opposite occurs. Let's take a deeper look at this particular variable
 
 #### The avg.confidence.in.government Variable
+
+To explore more of the avg.confidence.in.government variable, we'll look at the top 20 and bottom 20 countires in terms of this variable, and compare how their happiness values are.
+
+The table below shows the top 20 countries in terms of avg.confidence.in.government:
+
+```{r}
+top_n(happiness.agg, 20, avg.confidence.in.government)
+```
+We can now calcualte the average of these nations happiness:
+```{r}
+(4.94 + 4.72 + 5.2 + 4 + 3.55 + 4.24 + 4.38 + 4.73 + 5.3 + 6.27 + 4.97 + 7.05 + 4.41 + 6.57 + 3.65 + 6.5 + 7.55 + 4.91 + 5.79 + 5.31)/20
+```
+
+We can also do the same thing for the bottom 20 nations in terms of avg.confidence.in.government
+
+```{r}
+happiness.agg %>%
+  arrange((avg.confidence.in.government)) %>%
+  slice(1:20)
+```
+```{r}
+(4.73 + 5.16 + 5.53 + 5.59 + 5.6 + 5.37 + 4.98 + 5.53 + 4.48 + 5.79 + 6.27 + 6.02 + 5.55 + 5.70 + 5.88 + 5.91 + 6.02 + 5.56 + 4.98 + 6.01)/20
+
+```
+
+After doing this for both sets, we can actually see that for the sample that had the lowest avg.confidence.in.government had a higher happiness score on average than the the sample that had the higher avg.confidence.in.government. This supports the result that found that having a higher confidence in their government, the more unhappy their citizens are. But how could this be? It could be possible that countries that have a lower confidence have a higher education level than those that have a higher confidence. This can lead to their citizens being more skeptical of what their government says and can more easily see if they are not doing what the government is supposed to be doing.
+
+##Conclusion
+
+In conclusion, we  were able to perform an explanatory analysis to find what socio-economic factors actually impacts

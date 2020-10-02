@@ -2018,6 +2018,38 @@ summary(model1)</code></pre>
 <p>For almost all of these variables, the way that they affect happiness makes sense. We expect that the richer a country is, the more people that individuals can rely on, the longer a person lives, and the more freedom a person has to live their own life would make a country’s populace. We would also expect the more corrupt a government is and the more variability in a household would lead to a country’s populace to be less happy. But we wouldn’t expect that the higher a country’s populace has confidence in their government leads to that populace being unhappy. You would think that the less confident a country is in their leadership, the less happy they would be. But the opposite occurs. Let’s take a deeper look at this particular variable</p>
 <div id="the-avg.confidence.in.government-variable" class="section level4">
 <h4>The avg.confidence.in.government Variable</h4>
+<p>To explore more of the avg.confidence.in.government variable, we’ll look at the top 20 and bottom 20 countires in terms of this variable, and compare how their happiness values are.</p>
+<p>The table below shows the top 20 countries in terms of avg.confidence.in.government:</p>
+<pre class="r"><code>top_n(happiness.agg, 20, avg.confidence.in.government)</code></pre>
+<pre><code>## # A tibble: 20 x 16
+##    Country.name avg.Life.Lader avg.log.GDP.per~ avg.social.supp~
+##    &lt;fct&gt;                 &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 Azerbaijan             4.94             9.64            0.771
+##  2 Bangladesh             4.72             7.97            0.598
+##  3 Bhutan                 5.20             8.98            0.849
+##  4 Botswana               4.00             9.61            0.826
+##  5 Burundi                3.55             6.58            0.418
+##  6 Cambodia               4.24             7.98            0.719
+##  7 Ethiopia               4.38             7.34            0.683
+##  8 Gambia                 4.73             7.32            0.692
+##  9 Jordan                 5.30             9.09            0.840
+## 10 Kuwait                 6.27            11.2             0.873
+## 11 Laos                   4.97             8.47            0.741
+## 12 Luxembourg             7.05            11.4             0.921
+## 13 Myanmar                4.41             8.54            0.753
+## 14 Qatar                  6.57            11.7             0.863
+## 15 Rwanda                 3.65             7.39            0.619
+## 16 Singapore              6.50            11.2             0.881
+## 17 Switzerland            7.55            11.0             0.943
+## 18 Tajikistan             4.91             7.79            0.764
+## 19 Uzbekistan             5.79             8.50            0.928
+## 20 Vietnam                5.31             8.52            0.829
+## # ... with 12 more variables: avg.life.expectancy &lt;dbl&gt;, avg.freedom &lt;dbl&gt;,
+## #   avg.generosity &lt;dbl&gt;, avg.perception.of.corrpution &lt;dbl&gt;,
+## #   avg.positive.affect &lt;dbl&gt;, avg.negative.affect &lt;dbl&gt;,
+## #   avg.confidence.in.government &lt;dbl&gt;, avg.democratic.quality &lt;dbl&gt;,
+## #   avg.sd.of.happiness &lt;dbl&gt;, avg.mean.sd.of.happiness &lt;dbl&gt;,
+## #   avg.GINI.world.bank &lt;dbl&gt;, avg.gini.household &lt;dbl&gt;</code></pre>
 </div>
 </div>
 </div>
